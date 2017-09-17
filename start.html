@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+
+  <title>Karaoke</title>
+  <meta name="description" content="Karaoke">
+  <meta name="author" content="lidiera">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<!-- HTML -->	
+
+<div id="songs-list">
+
+  <input class="search" placeholder="Buscar" />
+  <button class="sort" data-sort="name">
+    Ordenar por nombre
+  </button>
+ <button class="sort" data-sort="artist">
+    Ordenar por artista
+  </button>
+  <ul class="list"></ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- JS -->
+	<script src="js/list.js"></script>
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script> --> <!-- List.js -->
+	
+	<script src="js/PapaParse-4.3.2/papaparse.js"></script>
+
+<script>	
+		
+		var songsListObject;
+		var songsCsvUrl = "data/songs_list_2.csv"
+		var songsResults;
+		var songsFile;
+		var songsArray;
+		var options = {
+	  		valueNames: [ 'name', 'artist' ],
+	  		// Since there are no elements in the list, this will be used as template.
+	  		item: '<li><h3 class="name">No se encuentra</h3><p class="artist">No se encuentra</p></li>'
+		};
+		var values;
+
+		var papaValues = Papa.parse(songsCsvUrl, {
+			download: true,
+			header: true,
+			complete: function(results, file) {		
+				songsResults = results;
+				songsFile = file;
+				songsData = results.data;
+				songsListObject = new List('songs-list', options, results.data);
+			}
+		});
+
+	</script>
+
+</body>
+</html>
